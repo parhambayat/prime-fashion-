@@ -1,0 +1,233 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --color-gold: var(--gold);
+  --color-bronze: var(--bronze);
+  --color-ink: var(--ink);
+  --color-cream: var(--cream);
+  --color-sand: var(--sand);
+
+  --font-display: "Cormorant Garamond", serif;
+  --font-sans: "Inter", sans-serif;
+  --font-arabic: "Amiri", serif;
+}
+
+:root {
+  --radius: 0.25rem;
+
+  /* Warm desert luxury palette */
+  --background: oklch(0.97 0.012 75); /* warm cream */
+  --foreground: oklch(0.22 0.018 50); /* deep ink */
+  --card: oklch(0.985 0.008 80);
+  --card-foreground: oklch(0.22 0.018 50);
+  --popover: oklch(0.985 0.008 80);
+  --popover-foreground: oklch(0.22 0.018 50);
+
+  --primary: oklch(0.28 0.025 45); /* near-black bronze */
+  --primary-foreground: oklch(0.97 0.012 75);
+  --secondary: oklch(0.92 0.022 75);
+  --secondary-foreground: oklch(0.28 0.025 45);
+  --muted: oklch(0.93 0.015 80);
+  --muted-foreground: oklch(0.48 0.022 60);
+  --accent: oklch(0.68 0.13 55); /* terracotta gold */
+  --accent-foreground: oklch(0.98 0.01 80);
+  --destructive: oklch(0.55 0.22 27);
+  --destructive-foreground: oklch(0.98 0.01 80);
+  --border: oklch(0.86 0.02 70);
+  --input: oklch(0.88 0.02 70);
+  --ring: oklch(0.68 0.13 55);
+
+  --gold: oklch(0.74 0.12 70);
+  --bronze: oklch(0.52 0.09 50);
+  --ink: oklch(0.18 0.015 50);
+  --cream: oklch(0.97 0.012 75);
+  --sand: oklch(0.88 0.035 75);
+
+  --shadow-soft: 0 30px 80px -40px oklch(0.3 0.03 50 / 0.35);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    letter-spacing: -0.01em;
+  }
+}
+
+/* ---------- Animations ---------- */
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+@keyframes rise {
+  0% {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes float-slow {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-14px) rotate(1deg);
+  }
+}
+@keyframes slow-zoom {
+  0% {
+    transform: scale(1.08);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@keyframes draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes reveal-mask {
+  0% {
+    clip-path: inset(0 100% 0 0);
+  }
+  100% {
+    clip-path: inset(0 0 0 0);
+  }
+}
+@keyframes letter-rise {
+  0% {
+    transform: translateY(110%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@utility animate-marquee {
+  animation: marquee 38s linear infinite;
+}
+@utility animate-rise {
+  animation: rise 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@utility animate-float-slow {
+  animation: float-slow 7s ease-in-out infinite;
+}
+@utility animate-slow-zoom {
+  animation: slow-zoom 12s ease-out both;
+}
+@utility animate-reveal-mask {
+  animation: reveal-mask 1.2s cubic-bezier(0.77, 0, 0.175, 1) both;
+}
+
+@utility text-shimmer {
+  background: linear-gradient(
+    90deg,
+    var(--bronze) 0%,
+    var(--gold) 30%,
+    oklch(0.92 0.06 80) 50%,
+    var(--gold) 70%,
+    var(--bronze) 100%
+  );
+  background-size: 200% auto;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  animation: shimmer 6s linear infinite;
+}
+
+@utility letter-mask {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+  & > span {
+    display: inline-block;
+    animation: letter-rise 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+}
+
+@utility hairline {
+  background: linear-gradient(90deg, transparent, var(--bronze), transparent);
+  height: 1px;
+}
+
+/* Reveal on scroll (uses IntersectionObserver toggling .in-view) */
+.reveal {
+  opacity: 0;
+  transform: translateY(36px);
+  transition:
+    opacity 1s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 1s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal-img {
+  clip-path: inset(0 100% 0 0);
+  transition: clip-path 1.4s cubic-bezier(0.77, 0, 0.175, 1);
+}
+.reveal-img.in-view {
+  clip-path: inset(0 0 0 0);
+}
